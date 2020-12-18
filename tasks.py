@@ -9,11 +9,10 @@ app = Celery(
     "tasks",
     broker="redis://localhost:6379/0",
     backend="redis://localhost:6379/0"
-    )
+)
 
 @app.task
 def predict(input_data):
-    return input_data
     d = np.array(input_data)
     with open(MODEL_PATH,"rb") as f:
         lm = pickle.load(f)

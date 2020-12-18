@@ -27,36 +27,18 @@ def get_help():
 <ol>{targets}</ol>
 """
 
-def validate_input(req):
-    if not isinstance(req,dict):
-        return False
-    if "input-data" not in req:
-        return False
-    input_data = req["input-data"]
-    if not isinstance(input_data,list):
-        return False
-    if not isinstance(input_data[0],list):
-        return False
-    if not isinstance(input_data[0][0],(int,float)):
-        return False
-    if len(input_data[0])
-    return True
-
 @app.route("/predict",methods=["POST"])
 def predict():
     req_input = request.get_json()
-    validate_input(req_input)
-    res = tasks.predict(req_input[""])
-    return {"key":"value"}
+    res = tasks.predict.delay(req_input["input-data"])
+    return {"result-url":f"/result/{res.task_id}"}
 
 @app.route("/result/<task_id>")
 def get_results(task_id: str):
     res = AsyncResult(task_id,app=tasks.app)
     if res.state == "SUCCESS":
-        return {"status":"success","result":res.get()}
-    return {"status":"working"}
-
-
+        return {"status":res.state,"predictions":res.get()}
+    return {"status":res.state}
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

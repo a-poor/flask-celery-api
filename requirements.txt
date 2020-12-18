@@ -1,0 +1,5 @@
+numpy==1.18.1
+requests==2.24.0
+scikit-learn==0.23.2
+celery[redis]
+Flask==1.1.2

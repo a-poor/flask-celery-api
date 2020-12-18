@@ -1,9 +1,12 @@
 
 import pickle
+from pathlib import Path
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
 
+# Create models directory if necessary
+Path("models").mkdir(exist_ok=True)
 MODEL_PATH = "./models/log_iris.pkl"
 
 # Load the data
