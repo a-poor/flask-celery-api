@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  celery:
+    image: celery-tasks
+    build:
+      context: .
+      dockerfile: ./celery.Dockerfile
+    depends_on:
+      - redis
+  app:
+    image: flask-api
+    build:
+      context: .
+      dockerfile: ./app.Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - celery
