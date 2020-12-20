@@ -11,12 +11,10 @@ It uses the distributed task queue, [Celery](https://docs.celeryproject.org), to
 
 When a user makes a request, the API diverts the processing to a Celery worker and responds with a location where the result will be stored when the processing is complete.
 
-For example:
-
-...
-
 
 ## Instructions for Use
+
+You can start redis, celery, and the flask api with the included dockerfiles and docker-compose file (with the command `$ docker-compose up`) or you can do the following:
 
 1. Install the required packages in [requirements.txt](./requirements.txt), if necessary.
 2. Run [build-model.py](./build-model.py) to train a `scikit-learn` logistic regression model on the iris dataset and then save it to the `models/` directory.
