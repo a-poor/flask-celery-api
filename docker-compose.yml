@@ -8,14 +8,14 @@ services:
     image: celery-tasks
     build:
       context: .
-      dockerfile: ./celery.Dockerfile
+      dockerfile: ./Dockerfile.celery
     depends_on:
       - redis
   app:
     image: flask-api
     build:
       context: .
-      dockerfile: ./app.Dockerfile
+      dockerfile: ./Dockerfile.app
     ports:
       - "5000:5000"
     depends_on:
